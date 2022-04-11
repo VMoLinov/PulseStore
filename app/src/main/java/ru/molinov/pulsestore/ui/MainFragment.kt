@@ -45,13 +45,8 @@ class MainFragment : Fragment() {
         binding.fab.setOnClickListener { expandFab() }
     }
 
-    private fun expandFab() {
-        MainDialog(::dataAdded).show(childFragmentManager, TAG)
-    }
-
-    private fun dataAdded(data: StoreDB) {
-        viewModel.saveData(data)
-    }
+    private fun expandFab() = MainDialog(::dataAdded).show(childFragmentManager, TAG)
+    private fun dataAdded(data: StoreDB) = viewModel.saveData(data)
 
     override fun onDestroy() {
         super.onDestroy()

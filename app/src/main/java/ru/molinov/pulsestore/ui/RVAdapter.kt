@@ -15,6 +15,7 @@ import ru.molinov.pulsestore.model.Items
 import ru.molinov.pulsestore.model.StoreUI
 
 class RVAdapter<T : Items> : RecyclerView.Adapter<RVAdapter<T>.BaseViewHolder>() {
+
     private var data = listOf<T>()
     private var isGreen = true
 

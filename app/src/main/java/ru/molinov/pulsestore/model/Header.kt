@@ -3,9 +3,7 @@ package ru.molinov.pulsestore.model
 import java.text.SimpleDateFormat
 import java.util.*
 
-data class Header(
-    override val time: String
-) : Items() {
+data class Header(override val time: String) : Items() {
 
     companion object {
         const val HEADER_TIME_PATTERN = "dd MMMM"

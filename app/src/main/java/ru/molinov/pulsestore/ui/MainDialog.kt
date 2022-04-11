@@ -27,9 +27,8 @@ class MainDialog(private val callback: (StoreDB) -> Unit) : DialogFragment() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         override fun afterTextChanged(s: Editable?) {
             button.isEnabled = (
-                    systolic.text?.isNotEmpty() == true
-                            && dystolic.text?.isNotEmpty() == true
-                            && pulse.text?.isNotEmpty() == true
+                    !systolic.text.isNullOrEmpty() && !dystolic.text.isNullOrEmpty()
+                            && !pulse.text.isNullOrEmpty()
                             && systolic.text.toString().toInt() in SYSTOLIC_MIN until SYSTOLIC_MAX
                             && dystolic.text.toString().toInt() in DYSTOLIC_MIN until DYSTOLIC_MAX
                             && pulse.text.toString().toInt() in PULSE_MIN until PULSE_MAX
@@ -70,19 +69,20 @@ class MainDialog(private val callback: (StoreDB) -> Unit) : DialogFragment() {
     }
 
     private fun TextInputEditText.focusChange(MIN: Int, MAX: Int) {
-        setOnFocusChangeListener { _, _ ->
-            val value = text.toString()
-            if (value.isNotEmpty() && (value.toInt() < MIN || value.toInt() > MAX)
-            ) {
-                error =
-                    getString(R.string.dialog_range) + " $MIN " +
-                            getString(R.string.dialog_until) + " $MAX "
-            } else systolic.error = null
+        setOnFocusChangeListener { _, focus ->
+            if (!focus) {
+                val value = text.toString()
+                if (value.isNotEmpty() && (value.toInt() < MIN || value.toInt() > MAX))
+                    error =
+                        getString(R.string.dialog_range) + " $MIN " + getString(R.string.dialog_until) + " $MAX "
+                else systolic.error = null
+            }
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
+        dismiss()
         _binding = null
     }
 
