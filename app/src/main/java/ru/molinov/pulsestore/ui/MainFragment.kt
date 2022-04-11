@@ -1,6 +1,5 @@
-package ru.molinov.pulsestore
+package ru.molinov.pulsestore.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +9,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import ru.molinov.pulsestore.databinding.FragmentMainBinding
+import ru.molinov.pulsestore.model.Items
 import ru.molinov.pulsestore.model.StoreDB
+import ru.molinov.pulsestore.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: RVAdapter
+    private lateinit var adapter: RVAdapter<Items>
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
@@ -28,7 +29,6 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = RVAdapter()
@@ -46,15 +46,19 @@ class MainFragment : Fragment() {
     }
 
     private fun expandFab() {
-        MainDialog(::callback).show(childFragmentManager, "TAG")
+        MainDialog(::dataAdded).show(childFragmentManager, TAG)
     }
 
-    private fun callback(data: StoreDB) {
+    private fun dataAdded(data: StoreDB) {
         viewModel.saveData(data)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        val TAG = MainFragment::class.java.toString()
     }
 }

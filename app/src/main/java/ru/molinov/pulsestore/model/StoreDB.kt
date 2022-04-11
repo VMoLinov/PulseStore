@@ -20,12 +20,8 @@ data class StoreDB(
     }
 
     private fun getDateTime(timeStamp: Long): String {
-        return try {
-            val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
-            val netDate = Date(timeStamp)
-            sdf.format(netDate)
-        } catch (e: Exception) {
-            e.toString()
-        }
+        val sdf = SimpleDateFormat(StoreUI.STORE_TIME_PATTERN, Locale.getDefault())
+        val netDate = Date(timeStamp)
+        return sdf.format(netDate)
     }
 }

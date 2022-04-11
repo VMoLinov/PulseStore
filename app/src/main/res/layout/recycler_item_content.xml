@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     tools:background="@drawable/content_item_green">
 
-    <TextClock
+    <TextView
         android:id="@+id/time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

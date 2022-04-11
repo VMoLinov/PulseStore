@@ -3,4 +3,10 @@
     <string name="add_pulse">Add pulse</string>
     <string name="delimiter">/</string>
     <string name="heart_icon">Heart icon</string>
+    <string name="dialog_title">Enter data</string>
+    <string name="dialog_range">Значение должно быть в пределах от</string>
+    <string name="dialog_until">до</string>
+    <string name="systolic">systolic</string>
+    <string name="dystolic">dystolic</string>
+    <string name="pulse">pulse</string>
 </resources>

@@ -2,11 +2,10 @@ package ru.molinov.pulsestore.remote
 
 import com.google.firebase.firestore.FirebaseFirestore
 import ru.molinov.pulsestore.model.StoreDB
-import ru.molinov.pulsestore.model.StoreUI
 
 class NetworkImpl(private val db: FirebaseFirestore = FirebaseFirestore.getInstance()) : Network {
 
-    override fun saveData(data: StoreDB, callback: (List<StoreUI>) -> Unit) {
+    override fun saveData(data: StoreDB, callback: (List<StoreDB>) -> Unit) {
         val store = mutableMapOf<String, Number>(
             TIME to data.time,
             SYSTOLIC to data.systolic,
@@ -17,9 +16,10 @@ class NetworkImpl(private val db: FirebaseFirestore = FirebaseFirestore.getInsta
         readData(callback)
     }
 
-    override fun readData(callback: (List<StoreUI>) -> Unit) {
-        val list = mutableListOf<StoreUI>()
+    override fun readData(callback: (List<StoreDB>) -> Unit) {
+        val list = mutableListOf<StoreDB>()
         db.collection(STORE)
+            .orderBy(TIME)
             .get()
             .addOnSuccessListener { result ->
                 for (item in result) {
@@ -29,7 +29,7 @@ class NetworkImpl(private val db: FirebaseFirestore = FirebaseFirestore.getInsta
                             (item[SYSTOLIC] as Number).toInt(),
                             (item[DYSTOLIC] as Number).toInt(),
                             (item[PULSE] as Number).toInt()
-                        ).toUI()
+                        )
                     )
                 }
                 callback.invoke(list)

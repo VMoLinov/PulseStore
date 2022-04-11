@@ -9,7 +9,8 @@
         android:id="@+id/systolic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="systolic"
+        android:gravity="center"
+        android:hint="@string/systolic"
         android:inputType="number"
         android:maxLength="3" />
 
@@ -17,7 +18,8 @@
         android:id="@+id/dystolic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="dystolic"
+        android:gravity="center"
+        android:hint="@string/dystolic"
         android:inputType="number"
         android:maxLength="3" />
 
@@ -25,7 +27,8 @@
         android:id="@+id/pulse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="pulse"
+        android:gravity="center"
+        android:hint="@string/pulse"
         android:inputType="number"
         android:maxLength="3" />
 </androidx.appcompat.widget.LinearLayoutCompat>
