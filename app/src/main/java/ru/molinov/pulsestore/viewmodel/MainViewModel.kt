@@ -9,9 +9,7 @@ import ru.molinov.pulsestore.model.getHeaderTime
 import ru.molinov.pulsestore.remote.Network
 import ru.molinov.pulsestore.remote.NetworkImpl
 
-class MainViewModel(
-    private val network: Network = NetworkImpl()
-) : ViewModel() {
+class MainViewModel(private val network: Network = NetworkImpl()) : ViewModel() {
 
     var liveData: MutableLiveData<List<Items>> = MutableLiveData()
 
@@ -24,7 +22,7 @@ class MainViewModel(
     }
 
     private fun dataChanged(data: List<StoreDB>) {
-        liveData.value = sortData(data)
+        liveData.postValue(sortData(data))
     }
 
     private fun sortData(data: List<StoreDB>): List<Items> {

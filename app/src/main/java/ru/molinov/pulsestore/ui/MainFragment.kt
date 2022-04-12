@@ -40,7 +40,7 @@ class MainFragment : Fragment() {
             )
         )
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.liveData.observe(viewLifecycleOwner) { adapter.setStore(it) }
+        viewModel.liveData.observe(viewLifecycleOwner) { adapter.submitList(it) }
         viewModel.readData()
         binding.fab.setOnClickListener { expandFab() }
     }
